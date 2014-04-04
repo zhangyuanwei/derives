@@ -1,3 +1,5 @@
+var derive = require("./dervie.js");
+
 var ClassA = derive(Object, function(_super) {
     this.name = "A";
     console.log("constructor from ClassA");
@@ -44,6 +46,7 @@ var ClassD = derive(ClassC, ClassB, {
 });
 
 
-//(new ClassC()).fn1();
+(new ClassC()).fn1();
+console.log("--------");
 (new ClassD()).fn1();
 
