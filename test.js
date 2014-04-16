@@ -1,52 +1,23 @@
-var derive = require("./dervie.js");
+var derives = require("derives");
 
-var ClassA = derive(Object, function(_super) {
-    this.name = "A";
-    console.log("constructor from ClassA");
-    console.log("this.name:", this.name);
+//从Object派生类
+var ClassA = derives(null, function(_super) {
+    console.log("hello from A");
 }, {
-    fn1: function(_super) {
-        console.log("fn1 from ClassA arguments.length:", arguments.length);
-        console.log("this.name:", this.name);
+    fn: function() {
+        //xxx
     }
 });
 
-var ClassB = derive(ClassA, function(_super) {
-    _super();
-    this.name = "B";
-    console.log("constructor from ClassB");
-    console.log("this.name:", this.name);
+//从ClassA派生ClassB
+var ClassB = derives(ClassA, function(_super) {
+    ClassA.call(this);
+    console.log("hello from B");
 }, {
-    fn1: function(_super) {
-        _super();
-        console.log("fn1 from ClassB arguments.length:", arguments.length);
-        console.log("this.name:", this.name);
+    fn: function(_super) {
+        //xxx
     }
 });
 
-var ClassC = derive(ClassB, function(_super) {
-    _super();
-    this.name = "C";
-    console.log("constructor from ClassC");
-    console.log("this.name:", this.name);
-}, {
-    fn1: function(_super) {
-        _super();
-        console.log("fn1 from ClassC arguments.length:", arguments.length);
-        console.log("this.name:", this.name);
-    }
-});
-
-var ClassD = derive(ClassC, ClassB, {
-    fn1: function(_super) {
-        _super();
-        console.log("fn1 from ClassD arguments.length:", arguments.length);
-        console.log("this.name:", this.name);
-    }
-});
-
-
-(new ClassC()).fn1();
-console.log("--------");
-(new ClassD()).fn1();
-
+var b = new ClassB();
+b.fn();
